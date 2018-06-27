@@ -38,3 +38,19 @@ was what originally linked me to that, and it also contains some good links:
 - [StackOverflow - How to dispatch a Redux action with a timeout?](https://stackoverflow.com/a/38574266)
 - [Curated tutorial and resource links on React, Redux, ES6, and more](https://github.com/markerikson/react-redux-links)
 
+### How I am doing async actions in this app
+
+Originally I was trying to mimic the type of middleware found in the
+[RealWorld App w/ React and Redux](https://github.com/gothinkster/react-redux-realworld-example-app/blob/master/src/middleware.js#L10).
+It seemed to make sense, and looked like it fit a lot of my requirements. However, after looking
+at it, and knowing about all the options I have now to choose from, this is just a re-implementation
+of [Redux-Promise](https://github.com/redux-utilities/redux-promise)!
+
+I initially liked that approach, because it uses the Promise nature of the Axios request, so
+I can just dispatch an async action and this middleware will inject the `_REQUEST` and `_SUCCESS`
+actions before my actual request.
+
+However, after reading Dan Abramov's post (listed above) on the [Redux Thunk Middleware](https://stackoverflow.com/a/35415559/864233), as well a post on handling `REQUEST`, `SUCCESS` and
+`FAILURE` states with Redux actions in [A Better Way To Handle Loading State In Redux])(http://nikolay.rocks/2017-06-18-better-redux-loading),
+I think I am going to go with Thunks.
+
