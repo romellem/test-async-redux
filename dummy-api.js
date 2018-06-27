@@ -36,14 +36,14 @@ for (let id in ARTICLES) {
 app.use(express.json());
 app.use(cors());
 
-app.get('/article', (req, res) => {
+app.get('/api/article', (req, res) => {
     // Wait between 250ms and 1000ms before response
     let delay = Math.round(Math.random() * 750) + 250;
     console.log(`Waiting ${delay}ms for API response from "${req.url}"`);
     setTimeout((req, res) => res.json(ARTICLES_LIST), delay, req, res);
 });
 
-app.get('/article/:id', (req, res) => {
+app.get('/api/article/:id', (req, res) => {
     const { id } = req.params;
     if (!ARTICLES[id]) {
         let error = `ERROR in looking up article "${id}"`;
@@ -60,7 +60,7 @@ app.get('/article/:id', (req, res) => {
 app.get(`*`, (req, res) => {
     // All other paths
     res.status(400).send({
-        error: 'Invalid route. Valid routes are: "' + '/article' + '" and "' + '/article/:id' + '"',
+        error: 'Invalid route. Valid routes are: "' + '/api/article' + '" and "' + '/api/article/:id' + '"',
     });
 });
 
