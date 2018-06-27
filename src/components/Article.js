@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 
 class ArticleList extends Component {
     render() {
-        return <div>Article</div>;
+        // Get ID from Route
+        let { id } = this.props.match.params;
+        return (
+            <h1>Article {id}</h1>
+        );
     }
 }
 
