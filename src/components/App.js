@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Article from './Article';
-import ArticleList from './ArticleList';
+import ListOfArticles from './ListOfArticles';
 
 class App extends Component {
     render() {
@@ -17,11 +17,11 @@ class App extends Component {
                 <Route
                     exact
                     path="/article"
-                    component={Article}
+                    component={ListOfArticles}
                 />
                 <Route
                     path="/article/:id"
-                    component={ArticleList}
+                    component={Article}
                 />
             </Switch>
         );
