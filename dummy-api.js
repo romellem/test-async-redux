@@ -48,7 +48,7 @@ app.get('/api/article/:id', (req, res) => {
     if (!ARTICLES[id]) {
         let error = `ERROR in looking up article "${id}"`;
         console.error(error);
-        return res.status(500).send({ error });
+        return res.status(404).send({ error });
     }
 
     // Wait between 250ms and 1000ms before response
