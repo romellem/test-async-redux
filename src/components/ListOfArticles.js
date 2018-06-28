@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchArticlesList } from '../redux/actions';
 
 const mapStateToProps = state => ({
     listArticles: {
-        ...state.listArticles
+        ...state.listArticles,
     },
 });
 const mapDispatchToProps = dispatch => ({
@@ -15,22 +16,27 @@ class ListOfArticles extends Component {
     componentDidMount() {
         this.props.onFetchArticles();
     }
+
     render() {
-        let data;
-        try {
-            data = JSON.stringify(this.props.listArticles.data);
-        } catch (e) {
-            data = this.props.listArticles.data.toString();
+        let { listArticles } = this.props;
+
+        if (listArticles.loading) {
+            return <h6>Loading...</h6>;
+        } else if (listArticles.error) {
+            return <h6 style={{ color: 'red' }}>An error occured!</h6>;
         }
+
+        // Otherwise, we have data to display!
         return (
             <React.Fragment>
                 <h1>List of Articles:</h1>
-                <pre>{JSON.stringify(this.props, null, '  ')}</pre>
-                {/*<ul>
-                    <li>Loading: {this.props.loading.toString()}</li>
-                    <li>Error: {this.props.error.toString()}</li>
-                    <li>Data: {data}</li>
-                </ul>*/}
+                <ul>
+                    {listArticles.data.map(article => (
+                        <li key={article.id}>
+                            <Link to={`/article/${article.id}`}>{article.title}</Link>
+                        </li>
+                    ))}
+                </ul>
             </React.Fragment>
         );
     }
