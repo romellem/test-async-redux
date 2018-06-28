@@ -51,7 +51,7 @@ I can just dispatch an async action and this middleware will inject the `_REQUES
 actions before my actual request.
 
 However, after reading Dan Abramov's post (listed above) on the [Redux Thunk Middleware](https://stackoverflow.com/a/35415559/864233), as well a post on handling `REQUEST`, `SUCCESS` and
-`FAILURE` states with Redux actions in [A Better Way To Handle Loading State In Redux])(http://nikolay.rocks/2017-06-18-better-redux-loading),
+`FAILURE` states with Redux actions in [A Better Way To Handle Loading State In Redux](http://nikolay.rocks/2017-06-18-better-redux-loading)),
 I think I am going to go with Thunks.
 
 Without further ado, here is the explanation on where I eventually arrived!
@@ -60,25 +60,25 @@ Without further ado, here is the explanation on where I eventually arrived!
 
 - In this example, to keep things simple, I'm not really making any
   [Presentational components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
-  This is evident in the fact that all my components dispatch the actions to load the data from our
-  API.
+  This is evident in the fact that all my components ultimately make the requests to load the data
+  from our API.
 - The way the data is loaded is all done through [Redux](https://redux.js.org/). We dispatch actions
   to load the data, the data is ultimately stored in the state, and we connect the state to our
   components using [React-Redux](https://github.com/reduxjs/react-redux), and the components use
   the data from the state to render the info.
 - The entire application is given an "SPA" makeover, and we use [React Router](https://reacttraining.com/react-router/)
-  to handle render specific components with a specific route.
-- One key thing with the state is, we don't save a `currentlySelectedArticle` within the Redux state.
-  We let React Router store that information, which then passes that data as a
-  [prop](https://reactjs.org/docs/components-and-props.html) down to the component. In this case,
-  we only have one variable route (`/article/:id`), so that is the only component that accesses
-  that data and uses it when we dispatch an action.
+  to handle render specific components when a route is matched.
+- One key thing with the state is, [we don't save](https://stackoverflow.com/a/36749963/864233)
+  a `currentlySelectedArticle` within the Redux state. We let React Router store that information,
+  which then passes that data as a [prop](https://reactjs.org/docs/components-and-props.html)
+  down to the component. In this case, we only have one variable route (`/article/:id`), so that is
+  the `<Article />` is the only component that accesses that data and uses it when we dispatch an action.
 - One other key thing with using React Router is allowing the component to re-render when we change
   the URL. So typing in the URL from `/article/1` to `/article/2`. Normally, this wouldn't trigger
   a re-render, but adding a [`componentDidUpdate`](https://reactjs.org/docs/react-component.html#componentdidupdate)
   lifecycle, we can dispatch another fetch action if our ID has changed.
 - We use [Action Creators](https://redux.js.org/basics/actions#action-creators) to (obviously) create
-  our action!. This allows us to `dispatch(someAction())` as opposed to
+  our actions! This allows us to `dispatch(someAction())` as opposed to
   `dispatch({type: SOME_ACTION})`
 - The shape of the actual action object should look like a
   [Flux Standard Action](https://github.com/redux-utilities/flux-standard-action).
