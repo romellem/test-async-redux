@@ -54,3 +54,41 @@ However, after reading Dan Abramov's post (listed above) on the [Redux Thunk Mid
 `FAILURE` states with Redux actions in [A Better Way To Handle Loading State In Redux])(http://nikolay.rocks/2017-06-18-better-redux-loading),
 I think I am going to go with Thunks.
 
+## Central Ideas
+
+- In this example, to keep things simple, I'm not really making any
+  [Presentational components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
+  This is evident in the fact that all my components dispatch the actions to load the data from our
+  API.
+- The way the data is loaded is all done through [Redux](https://redux.js.org/). We dispatch actions
+  to load the data, the data is ultimately stored in the state, and we connect the state to our
+  components using [React-Redux](https://github.com/reduxjs/react-redux), and the components use
+  the data from the state to render the info.
+- The entire application is given an "SPA" makeover, and we use [React Router](https://reacttraining.com/react-router/)
+  to handle render specific components with a specific route.
+- One key thing with the state is, we don't save a `currentlySelectedArticle` within the Redux state.
+  We let React Router store that information, which then passes that data as a
+  [prop](https://reactjs.org/docs/components-and-props.html) down to the component. In this case,
+  we only have one variable route (`/article/:id`), so that is the only component that accesses
+  that data and uses it when we dispatch an action.
+- One other key thing with using React Router is allowing the component to re-render when we change
+  the URL. So typing in the URL from `/article/1` to `/article/2`. Normally, this wouldn't trigger
+  a re-render, but adding a [`componentDidUpdate`](https://reactjs.org/docs/react-component.html#componentdidupdate)
+  lifecycle, we can dispatch another fetch action if our ID has changed.
+- We use [Action Creators](https://redux.js.org/basics/actions#action-creators) to (obviously) create
+  our action!. This allows us to `dispatch(someAction())` as opposed to
+  `dispatch({type: SOME_ACTION})`
+- The actually action that is dispatched for API requests is _not_ a plain old object but is actually a function!
+  More specifically, we are dispatching a [Thunk](https://daveceddia.com/what-is-a-thunk/),
+  and we allow Redux to handle this thunk by use of the
+  [Thunk middleware](https://github.com/reduxjs/redux-thunk). The main reason we dispatch thunks is
+  to handle async action (aka, API calls)
+- The thunks we use are actually [async functions](http://mdn.io/async_function), because it allows us
+  to [await](http://mdn.io/await) the AJAX request, which is made using the [Axios](https://github.com/axios/axios)
+  library.
+- Our thunks make use of an idea that async actions should come in [three flavors](https://decembersoft.com/posts/a-simple-naming-convention-for-action-creators-in-redux-js/):
+  - The initial **Request**
+  - When/if that request **Succeeds**
+  - When/if that request **Fails**
+- Because these actions are separated, this allows us to cache API data within the store, and when we
+  dispatch a thunk, skip the **Request** action because we can just load that data from the store!
