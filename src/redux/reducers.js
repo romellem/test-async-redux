@@ -19,10 +19,9 @@ const listArticles = (state = { loading: false, data: [], error: null }, action)
         case LIST_ARTICLES_SUCCESS:
             return {
                 ...state,
-                data: {
-                    ...state.data,
+                data: [
                     ...action.payload,
-                },
+                ],
                 loading: false,
                 error: null,
             };
