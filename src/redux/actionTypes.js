@@ -1,0 +1,9 @@
+// Lists all articles
+export const LIST_ARTICLES_REQUEST = 'LIST_ARTICLES_REQUEST';
+export const LIST_ARTICLES_SUCCESS = 'LIST_ARTICLES_SUCCESS';
+export const LIST_ARTICLES_FAILURE = 'LIST_ARTICLES_FAILURE';
+
+// Gets a specific article and caches it in our store
+export const FETCH_ARTICLE_REQUEST = 'FETCH_ARTICLE_REQUEST';
+export const FETCH_ARTICLE_SUCCESS = 'FETCH_ARTICLE_SUCCESS';
+export const FETCH_ARTICLE_FAILURE = 'FETCH_ARTICLE_FAILURE';
