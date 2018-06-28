@@ -16,28 +16,30 @@ class Article extends Component {
             this.props.onFetchArticleById(id);
         }
     }
+
     componentDidMount() {
         let { id } = this.props.match.params;
         this.props.onFetchArticleById(id);
     }
+
     render() {
         // Get ID from Route
         let { id } = this.props.match.params;
-        let article = this.props.articlesById[id];
+        let { articlesById } = this.props;
+        let article = articlesById.data[id];
 
-        if (!article) {
-            return (
-                <React.Fragment>
-                    {/* <h4>Loading...</h4> */}
-                    <pre>{JSON.stringify(this.props, null, '  ')}</pre>
-                </React.Fragment>
-            );
+        if (articlesById.loading) {
+            return <h6>Loading...</h6>;
+        } else if (articlesById.error) {
+            return <h6 style={{ color: 'red' }}>An error occured!</h6>;
+        } else if (!article) {
+            return <h6 style={{ color: 'red' }}>The article was not found!</h6>;
         }
 
         return (
             <React.Fragment>
                 <h1>{article.title}</h1>
-                <h5>Article {id}</h5>
+                <h5 style={{ color: 'gray' }}>Article {id}</h5>
                 <div dangerouslySetInnerHTML={{ __html: article.body }} />
             </React.Fragment>
         );
