@@ -80,6 +80,8 @@ Without further ado, here is the explanation on where I eventually arrived!
 - We use [Action Creators](https://redux.js.org/basics/actions#action-creators) to (obviously) create
   our action!. This allows us to `dispatch(someAction())` as opposed to
   `dispatch({type: SOME_ACTION})`
+- The shape of the actual action object should look like a
+  [Flux Standard Action](https://github.com/redux-utilities/flux-standard-action).
 - The actually action that is dispatched for API requests is _not_ a plain old object but is actually a function!
   More specifically, we are dispatching a [Thunk](https://daveceddia.com/what-is-a-thunk/),
   and we allow Redux to handle this thunk by use of the
