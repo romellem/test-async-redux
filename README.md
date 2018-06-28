@@ -54,7 +54,9 @@ However, after reading Dan Abramov's post (listed above) on the [Redux Thunk Mid
 `FAILURE` states with Redux actions in [A Better Way To Handle Loading State In Redux])(http://nikolay.rocks/2017-06-18-better-redux-loading),
 I think I am going to go with Thunks.
 
-## Central Ideas
+Without further ado, here is the explanation on where I eventually arrived!
+
+## Central Ideas (or What I Ended Up Doing)
 
 - In this example, to keep things simple, I'm not really making any
   [Presentational components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0).
