@@ -39,3 +39,12 @@ const requests = {
             .post(`${API_ROOT}/${url}`, body)
             .then(responseBody),
 };
+
+const Article = {
+    list: () => requests.get(`article`),
+    get: id => requests.get(`article/${id}`),
+};
+
+export default {
+    Article,
+};
