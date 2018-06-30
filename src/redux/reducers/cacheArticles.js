@@ -16,10 +16,11 @@ const cacheArticles = (state = { loading: false, error: null, data: {} }, action
             return {
                 ...state,
                 data: {
+                    // Spread the rest of the data to keep a cache of previous articles
                     ...state.data,
-                    [action.payload.id]: {
-                        ...action.payload,
-                    },
+
+                    // Store article under its ID
+                    [action.payload.id]: action.payload,
                 },
                 loading: false,
                 error: null,
