@@ -49,9 +49,7 @@ export const fetchArticleFailure = err => ({
 // @type thunk
 export const fetchArticleById = id => async (dispatch, getState) => {
     const state = getState();
-    const { articlesById } = state;
-
-    console.log(state);
+    const articlesById = state.articlesById.data;
 
     if (articlesById[id]) {
         console.log('Article cached!');

@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchArticleById } from '../redux/actions';
-import {
-    FETCH_ARTICLE_LOADING_STATE as LOADING_STATE,
-    FETCH_ARTICLE_FAILURE_STATE as FAILURE_STATE
-} from '../redux/reducers/cacheArticles';
 
 const mapStateToProps = state => ({
     articlesById: state.articlesById,
@@ -30,11 +26,11 @@ class Article extends Component {
         // Get ID from Route
         let { id } = this.props.match.params;
         let { articlesById } = this.props;
-        let article = articlesById[id];
+        let article = articlesById.data[id];
 
-        if (articlesById === LOADING_STATE) {
+        if (articlesById.loading) {
             return <h6>Loading...</h6>;
-        } else if (articlesById === FAILURE_STATE) {
+        } else if (articlesById.error) {
             return <h6 style={{ color: 'red' }}>An error occured!</h6>;
         } else if (!article) {
             return <h6 style={{ color: 'red' }}>The article was not found!</h6>;

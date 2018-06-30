@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchArticlesList } from '../redux/actions';
-import {
-    LIST_ARTICLES_LOADING_STATE as LOADING_STATE,
-    LIST_ARTICLES_FAILURE_STATE as FAILURE_STATE
-} from '../redux/reducers/listArticles';
 
 const mapStateToProps = state => ({
-    listArticles: [...state.listArticles]
+    listArticles: {
+        ...state.listArticles,
+    },
 });
 const mapDispatchToProps = dispatch => ({
     onFetchArticles: () => dispatch(fetchArticlesList()),
@@ -22,9 +20,9 @@ class ListOfArticles extends Component {
     render() {
         let { listArticles } = this.props;
 
-        if (listArticles === LOADING_STATE) {
+        if (listArticles.loading) {
             return <h6>Loading...</h6>;
-        } else if (listArticles === FAILURE_STATE) {
+        } else if (listArticles.error) {
             return <h6 style={{ color: 'red' }}>An error occured!</h6>;
         }
 
@@ -33,7 +31,7 @@ class ListOfArticles extends Component {
             <React.Fragment>
                 <h1>List of Articles:</h1>
                 <ul>
-                    {listArticles.map(article => (
+                    {listArticles.data.map(article => (
                         <li key={article.id}>
                             <Link to={`/article/${article.id}`}>{article.title}</Link>
                         </li>
