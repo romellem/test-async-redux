@@ -5,26 +5,18 @@ import {
     LIST_ARTICLES_SUCCESS
 } from '../actionTypes';
 
-const listArticles = (state = { loading: false, data: [], error: null }, action) => {
+export const LIST_ARTICLES_LOADING_STATE = [];
+export const LIST_ARTICLES_FAILURE_STATE = [];
+
+
+const listArticles = (state = [], action) => {
     switch (action.type) {
         case LIST_ARTICLES_REQUEST:
-            return {
-                ...state,
-                loading: true,
-            };
+            return LIST_ARTICLES_LOADING_STATE;
         case LIST_ARTICLES_SUCCESS:
-            return {
-                ...state,
-                data: [...action.payload],
-                loading: false,
-                error: null,
-            };
+            return [...action.payload];
         case LIST_ARTICLES_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
+            return LIST_ARTICLES_FAILURE_STATE;
         default:
             return state;
     }

@@ -5,31 +5,20 @@ import {
     FETCH_ARTICLE_SUCCESS,
 } from '../actionTypes';
 
-const cacheArticles = (state = { loading: false, error: null, data: {} }, action) => {
+export const FETCH_ARTICLE_LOADING_STATE = {};
+export const FETCH_ARTICLE_FAILURE_STATE = {};
+
+const cacheArticles = (state = {}, action) => {
     switch (action.type) {
         case FETCH_ARTICLE_REQUEST:
-            return {
-                ...state,
-                loading: true,
-            };
+            return FETCH_ARTICLE_LOADING_STATE;
         case FETCH_ARTICLE_SUCCESS:
             return {
                 ...state,
-                data: {
-                    ...state.data,
-                    [action.payload.id]: {
-                        ...action.payload,
-                    },
-                },
-                loading: false,
-                error: null,
+                [action.payload.id]: action.payload,
             };
         case FETCH_ARTICLE_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
+            return FETCH_ARTICLE_FAILURE_STATE;
         default:
             return state;
     }
