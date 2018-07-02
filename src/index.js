@@ -10,13 +10,6 @@ import { store } from './redux/store';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 
-window.log = (function(){
-    var c = 0;
-    return function(str) {
-        console.log(`${++c}: ${str}`);
-    };
-})();
-
 ReactDOM.render(
     <Provider store={store}>
         <HashRouter>

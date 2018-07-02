@@ -1,15 +1,13 @@
 // prettier-ignore
 import {
     FETCH_ARTICLE_REQUEST,
-    FETCH_ARTICLE_UNMOUNT,
     FETCH_ARTICLE_FAILURE,
     FETCH_ARTICLE_SUCCESS,
 } from '../actionTypes';
 
-const cacheArticles = (state = { loading: true, error: null, data: {} }, action) => {
+const cacheArticles = (state = { loading: false, error: null, data: {} }, action) => {
     switch (action.type) {
         case FETCH_ARTICLE_REQUEST:
-        case FETCH_ARTICLE_UNMOUNT:
             return {
                 ...state,
                 loading: true,

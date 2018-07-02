@@ -6,7 +6,6 @@ import {
     FETCH_ARTICLE_REQUEST,
     FETCH_ARTICLE_FAILURE,
     FETCH_ARTICLE_SUCCESS,
-    FETCH_ARTICLE_UNMOUNT,
 } from './actionTypes';
 
 export const listArticlesRequest = () => ({
@@ -46,9 +45,6 @@ export const fetchArticleFailure = err => ({
     error: true,
     payload: err,
 });
-export const fetchArticleUnmount = err => ({
-    type: FETCH_ARTICLE_UNMOUNT
-});
 
 // @type thunk
 export const fetchArticleById = id => async (dispatch, getState) => {
@@ -56,7 +52,7 @@ export const fetchArticleById = id => async (dispatch, getState) => {
     const articlesById = state.articlesById.data;
 
     if (articlesById[id]) {
-        // console.log('Article cached!');
+        console.log('Article cached!');
         return dispatch(fetchArticleSuccess(articlesById[id]));
     }
 
